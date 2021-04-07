@@ -1,0 +1,18 @@
+{
+  "remoteServiceBaseUrl": "http://161.97.150.80:8080",
+  "appBaseUrl": "http://161.97.150.80",
+  "localeMappings": [
+    {
+      "from": "pt-BR",
+      "to": "pt"
+    },
+    {
+      "from": "zh-CN",
+      "to": "zh"
+    },
+    {
+      "from": "he-IL",
+      "to": "he"
+    }
+  ]
+}

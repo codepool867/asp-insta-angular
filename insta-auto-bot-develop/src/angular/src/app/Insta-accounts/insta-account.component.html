@@ -1,0 +1,83 @@
+<div [@routerTransition]>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row d-flex justify-content-end mb-2">
+        <div (click)="onRefresh()" style="cursor: pointer; padding-right: 7px;">
+          Refresh <i class="fas fa-sync-alt"></i>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <h1>Insta Account</h1>
+        </div>
+        <div class="col-6 text-right">
+          <a href="javascript:;" class="btn bg-blue" (click)="createAccount()">
+            <i class="fa fa-plus-square"></i>
+            Create
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content px-2">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-header">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <button type="button" class="btn bg-blue" (click)="getDataPage()">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+            <input type="text" class="form-control" name="keyword" [placeholder]="'Search'"
+              [(ngModel)]="keyword" (keyup.enter)="getDataPage()" />
+          </div>
+        </div>
+        <div class="card-body table-responsive p-0">
+          <table class="table table-hover text-nowrap" [busy]="isTableLoading">
+            <thead class="bg-light">
+              <tr>
+                <th>first Name</th>
+                <th>User Name</th>
+                <th>Contact No</th>
+                <th>Full Name</th>
+                <!-- <th>Action</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="
+                  let account of accounts">
+                <td>{{ account.firstName}}</td>
+                <td>{{ account.userName}}</td>
+                <td>{{ account.phoneNumber}}</td>
+                <td>{{ account.fullName}}</td>
+                <!-- <td>
+                  <button type="button" class="btn btn-sm bg-secondary" (click)="editAccount(account.id)">
+                    <i class="fas fa-pencil-alt"></i>
+                    Configure
+                  </button>
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer bg-light border-top">
+          <div class="row">
+            <div class="col-sm-6 col-12">
+              <p class="mb-0 my-2">
+                Total: {{totalAccountItems}}
+              </p>
+            </div>
+            <div class="col-sm-6 col-12">
+              <div class="float-sm-right m-auto">
+                <pagination [directionLinks]="true" [totalItems]="totalAccountItems" [itemsPerPage]="pageSize"
+                  (pageChanged)="pageChanged($event)" [maxSize]="maxSize">
+                </pagination>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

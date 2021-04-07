@@ -1,0 +1,251 @@
+﻿<div [@routerTransition]>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <h1>{{ "HomePage" | localize }}</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content px-2">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-success">
+            <div class="inner">
+              <h3>{{dashBoardSummary.totalInstaAccounts}}</h3>
+              <p>Total accounts</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <!-- <a
+              href="https://github.com/aspnetboilerplate/aspnetboilerplate/stargazers"
+              class="small-box-footer"
+              target="_blank"
+            >
+              More info
+              <i class="fas fa-arrow-circle-right"></i>
+            </a> -->
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3>{{dashBoardSummary.totalMessages}}</h3>
+              <p>Total messages</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-reply-all"></i>
+            </div>
+            <!-- <a
+              href="https://github.com/aspnetboilerplate/aspnetboilerplate/graphs/contributors"
+              class="small-box-footer"
+              target="_blank"
+            >
+              More info
+              <i class="fas fa-arrow-circle-right"></i>
+            </a> -->
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-warning">
+            <div class="inner">
+              <h3>{{dashBoardSummary.accountBanned}}</h3>
+              <p>Accounts banned</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-ban"></i>
+            </div>
+            <!-- <a
+              href="https://github.com/aspnetboilerplate/aspnetboilerplate/network/dependents"
+              class="small-box-footer"
+              target="_blank"
+            >
+              More info
+              <i class="fas fa-arrow-circle-right"></i>
+            </a> -->
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-primary">
+            <div class="inner">
+              <h3>{{dashBoardSummary.accountAlive}}</h3>
+              <p>Accounts alived</p>
+            </div>
+            <div class="icon">
+              <i class="far fa-user"></i>
+            </div>
+
+            <!-- <a
+              href="https://github.com/aspnetboilerplate/aspnetboilerplate/network/members"
+              class="small-box-footer"
+              target="_blank"
+            >
+              More info
+              <i class="fas fa-arrow-circle-right"></i>
+            </a> -->
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon bg-primary elevation-1">
+              <i class="fas fa-plus-circle"></i>
+            </span>
+            <div class="info-box-content">
+              <span class="info-box-text">Commits</span>
+              <span class="info-box-number">
+                6,350+
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-warning elevation-1">
+              <i class="fas fa-exclamation-triangle"></i>
+            </span>
+            <div class="info-box-content">
+              <span class="info-box-text">Issues</span>
+              <span class="info-box-number">
+                170+
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix hidden-md-up"></div>
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-info elevation-1">
+              <i class="fas fa-tag"></i>
+            </span>
+            <div class="info-box-content">
+              <span class="info-box-text">Releases</span>
+              <span class="info-box-number">
+                200+
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-success elevation-1">
+              <i class="fas fa-eye"></i>
+            </span>
+            <div class="info-box-content">
+              <span class="info-box-text">Watching by</span>
+              <span class="info-box-number">
+                810+
+              </span>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Recent Insta Accounts</h3>
+            </div>
+            <div class="card-body table-responsive p-0">
+              <table class="table table-hover text-nowrap" [busy]="isTableLoading">
+                <thead class="bg-light">
+                  <tr>
+                    <th>{{ "first Name"  }}</th>
+                    <th>{{ "User Name"  }}</th>
+                    <th>{{ "Contact No"  }}</th>
+                    <th>{{ "Full Name"  }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let account of accounts">
+                    <td>{{ account.firstName}}</td>
+                    <td>{{ account.userName }}</td>
+                    <td>{{ account.phoneNumber }}</td>
+                    <td>{{ account.fullName }}</td>
+                    
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Closed Pull Requests</h3>
+            </div>
+            <div class="card-body table-responsive p-0">
+              <table class="table table-hover text-nowrap">
+                <thead class="bg-light">
+                  <tr>
+                    <th>Id</th>
+                    <th class="w-25">Title</th>
+                    <th class="w-25">Milestone</th>
+                    <th>Date</th>
+                    <th>Made by</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <a
+                        href="https://github.com/aspnetboilerplate/aspnetboilerplate/pull/5430"
+                        target="_blank"
+                      >
+                        5430
+                      </a>
+                    </td>
+                    <td>
+                      Added Dynamic-Parameter-System doc to documentation menu
+                    </td>
+                    <td>v5.6</td>
+                    <td>18 days ago</td>
+                    <td>maliming</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a
+                        href="https://github.com/aspnetboilerplate/aspnetboilerplate/pull/5362"
+                        target="_blank"
+                      >
+                        5362
+                      </a>
+                    </td>
+                    <td>
+                      Dynamic Parameter Module
+                    </td>
+                    <td>v5.4</td>
+                    <td>25 days ago</td>
+                    <td>demirmusa</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a
+                        href="https://github.com/aspnetboilerplate/aspnetboilerplate/pull/4924"
+                        target="_blank"
+                      >
+                        4924
+                      </a>
+                    </td>
+                    <td>
+                      ASP.NET Core 3.0 Upgrade
+                    </td>
+                    <td>v5.0</td>
+                    <td>Oct 15</td>
+                    <td>ismcagdas</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </section>
+</div>

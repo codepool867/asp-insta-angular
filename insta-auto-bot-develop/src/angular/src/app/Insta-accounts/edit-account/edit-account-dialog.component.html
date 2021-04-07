@@ -1,0 +1,140 @@
+<form class="form-horizontal" autocomplete="off" #editAccountForm="ngForm">
+  <abp-modal-header [title]="'User Configuration' | localize" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+  <div class="modal-body">
+    <tabset>
+      <tab [heading]="'Post Template' | localize" class="pt-3 px-2">
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="displayName">
+            Name
+          </label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" name="displayName" id="displayName" required maxlength="20"
+              [(ngModel)]="InstaTemplateInputDto.name" #picIntervalHour="ngModel" #displayNameE />
+            <abp-validation-summary [control]="picIntervalHour" [controlEl]="displayNameE"></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="name">
+            Zip File
+          </label>
+          <div class="col-2">
+
+            <div class="dashboard-wrapper">
+              <p-fileUpload #pfileUpload multiple="multiple" name="pfileUpload" mode="basic" [url]="uploadUrl"
+                accept=".zip" maxFileSize="1000000000" (onBeforeUpload)="onBeforeUpload($event)"
+                (onUpload)="onUpload($event)" (onSelect)="onSelect($event)" (onRemove)="onRemove($event)"
+                chooseLabel="Browse" [auto]="true" (onError)="onError($event)" [showUploadButton]="false"
+                [showCancelButton]="false">
+                <ng-template pTemplate="content"></ng-template>
+              </p-fileUpload>
+            </div>
+          </div>
+          <div class="col-7" style="padding-top:10px" *ngIf="InstaTemplateInputDto.zipFileName">
+            {{InstaTemplateInputDto.zipFileName}}
+            <span class="ml-3">
+              <i class="far fa-trash-alt" (click)="removeFile()" style="cursor: pointer;"></i>
+            </span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="postsIntervalInHours">
+            Posts interval in hour
+          </label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" name="postsIntervalInHours" id="postsIntervalInHours" required maxlength="20"
+              [(ngModel)]="InstaTemplateInputDto.postsIntervalInHours"
+              onkeypress="return /^[0-9 ()]+$/i.test(event.key)" #postsIntervalInHours="ngModel" #postsIntervalInHoursEl />
+            <abp-validation-summary [control]="postsIntervalInHours" [controlEl]="postsIntervalInHoursEl"></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row mb-0">
+          <label class="col-md-3 col-form-label" for="description">
+            Stories interval in hour
+
+          </label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" name="storiesIntervalInHours" id="storiesIntervalInHours" required maxlength="20"
+              [(ngModel)]="InstaTemplateInputDto.storiesIntervalInHours"
+              onkeypress="return /^[0-9 ()]+$/i.test(event.key)" #storyIntervalHour="ngModel" #storiesIntervalInHoursEl />
+            <abp-validation-summary [control]="storyIntervalHour" [controlEl]="storiesIntervalInHoursEl"></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row mb-0 mt-3">
+          <label class="col-md-3 col-form-label" for="description">
+            Tag usernames
+          </label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" name="displayName4" id="displayName4" maxlength="25"
+              (keyup)="onSelectTemplateTags($event)" />
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-3"></div>
+          <div class="col-9">
+            <span class="p-overlay-badge" *ngFor="let tag of templateTags;let i=index"
+              style="margin-right: 15px;margin-top:15px">
+              <p-button [label]="tag"></p-button>
+              <span class="p-badge p-badge-warning" style="cursor: pointer;"
+                (click)="onRemoveTemplateTags(tag,i)">x</span>
+            </span>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">
+            Cancel
+          </button>
+          <button type="button" class="btn btn-primary" (click)="savePostTemplate()" [disabled]="isValidTemplateTab()">
+            Save
+          </button>
+        </div>
+      </tab>
+      <tab [heading]="'Message Template' | localize" class="pt-3 px-2">
+        <div class="form-group row mb-0">
+          <label class="col-md-3 col-form-label" for="description">
+            To usernames
+          </label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" name="displayName4" id="displayName4" maxlength="25"
+              (keyup)="onSelectMessageTags($event)" />
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-3"></div>
+          <div class="col-9">
+            <span class="p-overlay-badge" *ngFor="let tag of messageTags;let i=index"
+              style="margin-right: 15px;margin-top:15px">
+              <p-button [label]="tag"></p-button>
+              <span class="p-badge p-badge-warning" style="cursor: pointer;"
+                (click)="onRemoveMessageTags(tag,i)">x</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row mb-4" style="margin-top: 16px;">
+          <label class="col-md-3 col-form-label" for="description">
+            Text message
+          </label>
+          <div class="col-md-9">
+            <textarea type="text" class="form-control" name="description" id="description"
+              [(ngModel)]="InstaMessageInputDto.textMessage" #textMessage="ngModel" #text>
+          </textarea>
+            <abp-validation-summary [control]="textMessage" [controlEl]="text"></abp-validation-summary>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">
+            Cancel
+          </button>
+          <button type="button" class="btn btn-primary" (click)="saveMessageTemplate()"
+            [disabled]="isValidMessageTab()">
+            Save
+          </button>
+        </div>
+      </tab>
+
+    </tabset>
+  </div>
+  <!-- 
+  <abp-modal-footer [cancelDisabled]="saving" [saveDisabled]="isValid() || saving"
+    (onCancelClick)="bsModalRef.hide()"></abp-modal-footer> -->
+</form>
